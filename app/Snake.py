@@ -6,4 +6,4 @@ class Snake:
         self.health = data['health']
         self.length = len(data['body']['data'])
         self.tail = (  data['body']['data'][self.length-1]['x']  ,   data['body']['data'][self.length-1]['y']  )
-        print 'Snake: head: ', self.head, 'tail: ', self.tail, ' health: ', self.health, ' lnegth: ', self.length
+        #print 'Snake: head: ', self.head, 'tail: ', self.tail, ' health: ', self.health, ' lnegth: ', self.length

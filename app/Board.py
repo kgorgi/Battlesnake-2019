@@ -28,6 +28,6 @@ class Board:
 
         for body in data['you']['body']['data']:
             board[body['y']][body['x']] = 1
-        pprint.pprint(board)
+        #pprint.pprint(board)
         return board
 
