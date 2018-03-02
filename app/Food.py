@@ -3,8 +3,6 @@ class Food:
     def __init__(self, data, snake):
         self.x = data['x']
         self.y = data['y']
-
-    def dist(self.)
-        self.distance = abs(snake.x - self.x) + abs(snake.y - self.y)
+        self.distance = abs(snake.head[0] - self.x) + abs(snake.head[1] - self.y)
         
 
