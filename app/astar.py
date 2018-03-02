@@ -1,30 +1,12 @@
 #python2.7
 
-
-class Node:
-    def __init__(self,value,point):
-        #if the node is visitable
-        self.value=value
-
-        self.point=point
-
-        #abs dist to goal
-        self.H=0
-
-        #path dist fom start
-        self.G=0
-
-        def moveCost(self, node):
-            return 1
-
-
-
-
-
 def getNeighbours(point,grid):
+
     x,y=point
     width = len(grid[0])
     height = len(grid)
+
+    #add decisions here
 
     valid_adjecent=[]
     if x-1>=0:
@@ -73,7 +55,7 @@ def aStar(start,end,grid):
             return path[::-1]
         not_visited.remove(current)
         visited.add(current)
-        for node in getNeighbours(current,grid):
+        for node in getNeighbours(current.point,grid):
             if node in visited:
                 continue
             if node in not_visited:
@@ -87,6 +69,7 @@ def aStar(start,end,grid):
                 node.H=manhattan(node,end)
                 node.parent=current
                 not_visited.add(node)
+    return None
                 
 
 
