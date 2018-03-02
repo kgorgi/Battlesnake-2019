@@ -1,7 +1,7 @@
-#python2.7
+from Node import Node
 
 def getNeighbours(point,grid):
-
+    
     x,y=point
     width = len(grid[0])
     height = len(grid)
@@ -26,7 +26,9 @@ def chooseNext(node):
     return node.G+node.H
 
 def manhattan(node,food):
-    return abs(node.x - food.x) + abs(node.y - food.y)
+    x, y = node.point
+    xf, yf = food.point
+    return abs(x - xf) + abs(y - yf)
         
 
 
@@ -60,12 +62,12 @@ def aStar(start,end,grid):
                 continue
             if node in not_visited:
                 #updating move cost
-                new_g = current.G+current.moveCost(node)
+                new_g = current.G+1  #put move cost
                 if node.G>new_g:
                     node.G = new_g
                     node.parent=current
             else:
-                node.G=current.G+current.moveCost(node)
+                node.G=current.G+1 #put move cost
                 node.H=manhattan(node,end)
                 node.parent=current
                 not_visited.add(node)

@@ -12,7 +12,7 @@ class Board:
         #enemy snake bodies are possitioned on the board as 2's and food is 3
         #location of food can also be accessed with the food object
 
-        board = [[Node(None, None) for x in range(self.width)] for y in range(self.height)] #2d array filled with all 0
+        board = [[Node(0, (x,y)) for x in range(self.width)] for y in range(self.height)] #2d array filled with all 0
 
         
         enemies_list = []
@@ -28,6 +28,6 @@ class Board:
 
         for body in data['you']['body']['data']:
             board[body['y']][body['x']] = Node(1, (body['x'], body['y']))
-        pprint.pprint(board)
+        #pprint.pprint(board)
         return board
 
