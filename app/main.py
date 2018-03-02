@@ -3,6 +3,7 @@ import os
 import random
 import json
 import pprint
+from Node import Node
 from Board import Board
 from Food import Food
 from Snake import Snake
@@ -25,11 +26,11 @@ def init_food(data, snake):
     return list
 
 def dir(snake, food):
-    if snake.x > food.x:
+    if snake.head[0] > food.x:
         return 'left'
-    elif snake.x<food.x:
+    elif snake.head[0]<food.x:
         return 'right'
-    if snake.y > food.y:
+    if snake.head[1] > food.y:
         return 'up'
     else:
         return 'down'
