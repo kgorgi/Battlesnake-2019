@@ -7,6 +7,7 @@ from Node import Node
 from Board import Board
 from Food import Food
 from Snake import Snake
+from astar import aStar
 
 
 @bottle.route('/')
@@ -25,7 +26,9 @@ def init_food(data, snake):
 
     return list
 
-def dir(snake, food):
+def dir(snake, food, board):
+    print aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
+
     if snake.head[0] > food.x:
         return 'left'
     elif snake.head[0]<food.x:
@@ -70,7 +73,7 @@ def move():
     
     
     directions = ['up', 'down', 'left', 'right']
-    direction = dir(snake, food[0]) #passing in first item of food list for testing
+    direction = dir(snake, food[0], board) #passing in first item of food list for testing
     print direction
 
     return {

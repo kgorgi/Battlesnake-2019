@@ -1,27 +1,7 @@
-#python2.7
-
-
-class Node:
-    def __init__(self,value,point):
-        #if the node is visitable
-        self.value=value
-
-        self.point=point
-
-        #abs dist to goal
-        self.H=0
-
-        #path dist fom start
-        self.G=0
-
-        def moveCost(self, node):
-            return 1
-
-
-
-
+from Node import Node
 
 def getNeighbours(point,grid):
+    
     x,y=point
     width = len(grid[0])
     height = len(grid)
@@ -44,7 +24,9 @@ def chooseNext(node):
     return node.G+node.H
 
 def manhattan(node,food):
-    return abs(node.x - food.x) + abs(node.y - food.y)
+    x, y = node.point
+    xf, yf = food.point
+    return abs(x - xf) + abs(y - yf)
         
 
 
@@ -73,17 +55,17 @@ def aStar(start,end,grid):
             return path[::-1]
         not_visited.remove(current)
         visited.add(current)
-        for node in getNeighbours(current,grid):
+        for node in getNeighbours(current.point,grid):
             if node in visited:
                 continue
             if node in not_visited:
                 #updating move cost
-                new_g = current.G+current.moveCost(node)
+                new_g = current.G+1  #put move cost
                 if node.G>new_g:
                     node.G = new_g
                     node.parent=current
             else:
-                node.G=current.G+current.moveCost(node)
+                node.G=current.G+1 #put move cost
                 node.H=manhattan(node,end)
                 node.parent=current
                 not_visited.add(node)
