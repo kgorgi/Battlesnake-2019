@@ -1,6 +1,23 @@
 #python2.7
 
 
+class Node:
+    def __init__(self,value,point):
+        #if the node is visitable
+        self.value=value
+
+        self.point=point
+
+        #abs dist to goal
+        self.H=0
+
+        #path dist fom start
+        self.G=0
+
+        def moveCost(self, node):
+            return 1
+
+
 
 
 
@@ -26,6 +43,12 @@ def getNeighbours(point,grid):
 def chooseNext(node):
     return node.G+node.H
 
+def manhattan(node,food):
+    return abs(node.x - food.x) + abs(node.y - food.y)
+        
+
+
+#returns list of nodes
 def aStar(start,end,grid):
 
     #nodes connected to cloud
@@ -40,7 +63,7 @@ def aStar(start,end,grid):
         #find next node to visit
         current =min(not_visited,key=chooseNext)
 
-        if(current==goal):
+        if(current==end):
             path=[]
             while current.parent:
                 path.append(current)
@@ -50,7 +73,7 @@ def aStar(start,end,grid):
             return path[::-1]
         not_visited.remove(current)
         visited.add(current)
-        for node in neighbours(current,grid):
+        for node in getNeighbours(current,grid):
             if node in visited:
                 continue
             if node in not_visited:
@@ -61,7 +84,7 @@ def aStar(start,end,grid):
                     node.parent=current
             else:
                 node.G=current.G+current.moveCost(node)
-                node.H=manhattan(node,goal)
+                node.H=manhattan(node,end)
                 node.parent=current
                 not_visited.add(node)
                 
