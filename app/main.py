@@ -2,8 +2,10 @@ import bottle
 import os
 import random
 import json
-from Board import Board
 import pprint
+from Board import Board
+from Food import Food
+from Snake import Snake
 
 
 @bottle.route('/')
@@ -15,24 +17,19 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
+def init_food(data, snake):
+    list = []
+    for food in data['food']['data']:
+        list.append(Food(food, snake))
 
-def init_snake(data):
-    snake = data['you']
-    snake = {
-        'health' : snake['health'],
-        'x' : snake['body']['data'][0]['x'],
-        'y' : snake['body']['data'][0]['y'],
-        'length' : len(snake['body']['data'])
-    }
-    return snake
-
+    return list
 
 def dir(snake, food):
-    if snake['x'] > food['x']:
+    if snake.x > food.x:
         return 'left'
-    elif snake['x']<food['x']:
+    elif snake.x<food.x:
         return 'right'
-    if snake['y'] > food['y']:
+    if snake.y > food.y:
         return 'up'
     else:
         return 'down'
@@ -64,12 +61,15 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
+
     board = Board(data)
-    snake = init_snake(data)
-    # TODO: Do things with data
+    #enemy_list = init_enemies(data['snakes'])
+    snake = Snake(data['you'])
+    food = init_food(data, snake) #list of food in ordered by closest distance to snake
+    
     
     directions = ['up', 'down', 'left', 'right']
-    direction = dir(snake, board.food)
+    direction = dir(snake, food[0]) #passing in first item of food list for testing
     print direction
 
     return {
