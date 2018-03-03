@@ -10,7 +10,7 @@ def manhattan(start, end):
     xf, yf = end.get_point()
     return abs(x - xf) + abs(y - yf)
 
-def dist_to_closest(start_node,end_node_list):
+def dist_to_closest(start_node, end_node_list):
     smallest_d = None
     for each in end_node_list:
         d = manhattan(start_node,each)

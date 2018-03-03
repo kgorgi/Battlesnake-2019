@@ -24,7 +24,6 @@ def dir(snake_head, next_node):
     x,y = next_node.get_point()
     sx,sy = snake_head.get_point()
 
-    #""""
     if x > sx:
         return 'right'
     elif x < sx:
@@ -68,7 +67,8 @@ def move():
     food = board.get_food_list()
 
     path = Path(board).find_path()
-    direction = dir(snake.get_head(), path[0])
+
+    direction = dir(snake.get_head(), path[1])
     
     print board
     print direction
