@@ -1,5 +1,5 @@
 from Node import Node
-from Snake import Snake
+from SnakeNode import SnakeNode
 
 def getNeighbours(point, board):
     x,y = point
@@ -22,7 +22,7 @@ def getNeighbours(point, board):
         if node is None:
             node = board.add_blank(point)
 
-        if not isinstance(node, Snake):
+        if not isinstance(node, SnakeNode):
             neighbours.append(node)
     
     return neighbours
@@ -38,7 +38,7 @@ def manhattan(node, food):
     return abs(x - xf) + abs(y - yf)
         
 #returns list of nodes
-def aStar( start, end, board):
+def aStar(start_node, end_node, board):
 
     #nodes connected to cloud
     not_visited = set()
@@ -46,14 +46,14 @@ def aStar( start, end, board):
     #nodes in cloud
     visited = set()
 
-    current = board.get_node(start)
+    current = start_node
     not_visited.add(current)
 
     while not_visited:
         #find next node to visit
         current = min(not_visited , key = chooseNext)
 
-        if(current.get_point() == end.get_point()):
+        if(current.get_point() == end_node.get_point()):
             path = []
             while current.get_parent():
                 path.append(current)
@@ -77,7 +77,7 @@ def aStar( start, end, board):
                     node.set_parent(current)
             else:
                 node.set_distance_to_start(current.get_distance_to_start() + 1) #put move cost
-                node.set_distance_to_goal(manhattan(node,end))
+                node.set_distance_to_goal(manhattan(node,end_node))
                 node.set_parent(current)
                 not_visited.add(node)
     
