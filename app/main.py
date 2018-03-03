@@ -5,7 +5,7 @@ import json
 from Node import Node
 from Board import Board
 from Food import Food
-from Snake import Snake
+from SnakeNode import SnakeNode
 from aStar import aStar, getNeighbours
 
 @bottle.route('/')
@@ -16,13 +16,13 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def dir(snake, food, board):
-    path_list = aStar(snake.head, food, board)
+def dir(start_node, end_node, board):
+    path_list = aStar(start_node, end_node, board)
 
     x, y = 0, 0
     if path_list is None:
         # No Direct Path, Choose The First Neighbour
-        neighbours = getNeighbours(snake.head, board)
+        neighbours = getNeighbours(start_node.get_point(), board)
         if len(neighbours) == 0:
             # Time to DIE
             print("RIP")
@@ -31,7 +31,7 @@ def dir(snake, food, board):
     else:
         x, y = path_list[1].get_point()
     
-    sx, sy = snake.head
+    sx, sy = start_node.get_point()
     
     if x > sx:
         return 'right'
@@ -72,10 +72,13 @@ def move():
 
     board = Board(data)
 
-    snake = board.get_snake()
+    snake = board.get_our_snake()
     food = board.get_food_list()
     
-    direction = dir(snake, food[0], board)
+
+    direction = dir(snake.get_head(), food[0], board)
+
+
 
     print board
     print direction
@@ -84,6 +87,7 @@ def move():
         'move': direction,
         'taunt': 'Monty Python in Python!'
     }
+    
 
 
 # Expose WSGI app (so gunicorn can find it)

@@ -1,6 +1,6 @@
 from Node import Node
 from Food import Food
-from Snake import Snake
+from SnakeNode import SnakeNode
 from SnakeInfo import SnakeInfo
 
 class Board:
@@ -18,7 +18,7 @@ class Board:
         
         # Process Snakes
         for snake in data['snakes']['data']:
-            snake_info = SnakeInfo(snake, our_id)
+            snake_info = SnakeInfo(snake, self,our_id)
 
             if snake_info.is_enemy():
                 self._enemy_list.append(snake_info)
@@ -26,7 +26,7 @@ class Board:
                 self._our_snake = snake_info
 
             for point in snake['body']['data']:
-                new_snake = Snake(point, snake_info)
+                new_snake = SnakeNode(point, snake_info)
                 self._nodes[new_snake.get_point()] = new_snake
 
         # Process Food
@@ -50,7 +50,7 @@ class Board:
     def get_food_list(self):
         return self._food_list
 
-    def get_snake(self):
+    def get_our_snake(self):
         return self._our_snake  
 
     def get_width(self):
@@ -81,7 +81,7 @@ class Board:
                     node = self._nodes[loc]
                     if isinstance(node, Food):
                         line.append("F")
-                    elif isinstance(node, Snake):
+                    elif isinstance(node, SnakeNode):
                         snake_info = node.get_snake_info()
                         if snake_info.is_enemy():
                             line.append("X")
