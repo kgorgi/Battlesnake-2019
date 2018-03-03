@@ -3,11 +3,13 @@ class Node(object):
 
         self._point = point
 
-        # Absolute Distance To Goal (H)
+        # Absolute Distance To Goal
         self._goal_dist = 0
 
-        # Path Distance to Start (G)
+        # Path Distance to Start
         self._start_dist = 0
+
+        self._parent = None
 
     def get_point(self):
         return self._point
@@ -23,3 +25,9 @@ class Node(object):
 
     def set_distance_to_goal(self, value):
         self._goal_dist = value
+
+    def get_parent(self):
+        return self._parent
+
+    def set_parent(self, value):
+        self._parent = value

@@ -1,33 +1,101 @@
-import pprint
 from Node import Node
+from Food import Food
+from Snake import Snake
+from SnakeInfo import SnakeInfo
+
 class Board:
     def __init__(self, data):
-        self.width = data['width']
-        self.height = data['height']
-        self.board = self.init_board(data)
+        self._width = data['width']
+        self._height = data['height']
+        self._nodes = dict()
+
+        self._food_list = []
+        self._enemy_list = []
+
+        self._our_snake = None
+
+        our_id = data['you']['id']
+        
+        # Process Snakes
+        for snake in data['snakes']['data']:
+            snake_info = SnakeInfo(snake, our_id)
+
+            if snake_info.is_enemy():
+                self._enemy_list.append(snake_info)
+            else:
+                self._our_snake = snake_info
+
+            for point in snake['body']['data']:
+                new_snake = Snake(point, snake_info)
+                self._nodes[new_snake.get_point()] = new_snake
+
+        # Process Food
+        for raw_data in data['food']['data']:
+            new_food = Food(raw_data)
+            self._food_list.append(new_food)
+            self._nodes[new_food.get_point()] = new_food
+        
+    def get_node(self, point):
+        x, y = point
+        if x < 0 or x > self._width or y < 0 or y > self._height:
+            raise Exception("Invalid Location")
+        elif (x,y) in self._nodes:
+            return self._nodes[(x, y)]
+        else:
+            return None
+
+    def get_enemies(self):
+        return self._enemy_list
+
+    def get_food_list(self):
+        return self._food_list
+
+    def get_snake(self):
+        return self._our_snake  
+
+    def get_width(self):
+        return self._width
+
+    def get_height(self):
+        return self._height
+
+    def add_blank(self, point):
+        new_node = Node(point)
+        self._nodes[point] = new_node
+        return new_node
+
+    # Legend: 
+    # F = Food
+    # S = Snake  
+    # X = Enemy Snakes
+    # N = Empty Node
+    # 0 = Uninitalized
+    def __str__(self, show_empty_nodes = False):
+        lines = []
+
+        for j in range(0, self._height):
+            line = []
+            for i in range(0, self._width):
+                loc = (i,j)
+                if loc in self._nodes:
+                    node = self._nodes[loc]
+                    if isinstance(node, Food):
+                        line.append("F")
+                    elif isinstance(node, Snake):
+                        snake_info = node.get_snake_info()
+                        if snake_info.is_enemy():
+                            line.append("X")
+                        else:
+                            line.append("S") 
+                    else:
+                        line.append("N" if show_empty_nodes else "0")
+                else:
+                    line.append("0")
+            lines.append(" ".join(line))
+        
+        return "\n".join(lines)
     
-
-    def init_board(self, data):
-        #Board is generated as a 2D array with 0's occupying all possitons.
-        #enemy snake bodies are possitioned on the board as 2's and food is 3
-        #location of food can also be accessed with the food object
-
-        board = [[Node(0, (x,y)) for x in range(self.width)] for y in range(self.height)] #2d array filled with all 0
+        
 
         
-        enemies_list = []
-        enemies = data['snakes']['data']
-        for food in data['food']['data']:
-            board[food['y']][food['x']] = Node(3, (food['x'], food['y']))
-          
-        
-        #place body on board
-        for snake in enemies:
-            for body in snake['body']['data']:
-                board[body['y']][body['x']] = Node(2, (body['x'], body['y']))
-
-        for body in data['you']['body']['data']:
-            board[body['y']][body['x']] = Node(1, (body['x'], body['y']))
-        #pprint.pprint(board)
-        return board
 
