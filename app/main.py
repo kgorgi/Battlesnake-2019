@@ -6,9 +6,9 @@ import pprint
 from Node import Node
 from Board import Board
 from Food import Food
-from Snake import Snake
+from SnakeNode import SnakeNode
 from astar import aStar
-
+from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
 
 @bottle.route('/')
 def static():
@@ -19,14 +19,23 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def init_food(data, snake):
-    list = []
-    for food in data['food']['data']:
-        list.append(Food(food, snake))
+def dir(start_node, end_node, board, filter_obj):
+    path_list = aStar(start_node, end_node, board, filter_obj)
 
-    return list
+    for each in path_list:
+        print each.get_point()
 
-def dir(snake, food, board):
+    x, y = 0, 0
+    if path_list is None:
+        # No Direct Path, Choose The First Neighbour
+        neighbours = get_neighbours(start_node.get_point(), board, filter_obj)
+        if len(neighbours) == 0:
+            # Time to DIE
+            print("RIP")
+            return "down"
+        x, y = neighbours[0].get_point()
+    else:
+        x, y = path_list[1].get_point()
     
 
     path_list = aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
@@ -89,13 +98,13 @@ def move():
     data = bottle.request.json
 
     board = Board(data)
-    #enemy_list = init_enemies(data['snakes'])
-    snake = Snake(data['you'])
-    food = init_food(data, snake) #list of food in ordered by closest distance to snake
+
+    snake = board.get_our_snake()
+    food = board.get_food_list()
+
+    direction = dir(snake.get_head(), food[0], board, FoodFilter())
     
-    
-    directions = ['up', 'down', 'left', 'right']
-    direction = dir(snake, food[0], board) #passing in first item of food list for testing
+    print board
     print direction
 
     return {

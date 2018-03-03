@@ -1,6 +1,6 @@
 from SnakeNode import SnakeNode
 
-def getNeighbours(point, board):
+def get_neighbours(point, board, filter_obj):
     x,y = point
 
     valid_adjacent = []
@@ -18,12 +18,31 @@ def getNeighbours(point, board):
     for point in valid_adjacent:
         node = board.get_node(point)
 
+        # Add empty node if available
         if node is None:
             node = board.add_blank(point)
 
-
-        if not isinstance(node,SnakeNode):
+        if filter_obj.is_neighbour(node):
             neighbours.append(node)
     
-    
     return neighbours
+
+class FoodFilter:
+    def __init__(self):
+        pass
+    
+    def is_neighbour(self, node):
+        return not isinstance(node, SnakeNode)
+
+class SnakePartFilter:
+    def __init__(self, snake_part):
+        self._snake_part = snake_part
+
+    def is_neighbour(self, node):
+        if node is self._snake_part:
+            return True
+        elif isinstance(node, SnakeNode):
+            return False
+        else:
+            return True 
+
