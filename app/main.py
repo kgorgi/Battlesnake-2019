@@ -76,9 +76,9 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
     
-
     direction = dir(snake.get_head(), food[0], board)
 
+<<<<<<< HEAD
     toTail = aStar(snake.get_head(),snake.get_tail(),board)
     if(not toTail):
         print toTail
@@ -86,6 +86,8 @@ def move():
 
 
 
+=======
+>>>>>>> 35d48b86816c8f7cf9758bb0e64cd019824dddb9
     print board
     print direction
 

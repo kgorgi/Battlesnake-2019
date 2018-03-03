@@ -28,7 +28,11 @@ class SnakeInfo:
     
 
     def __str__(self):
-        return 'Snake: head: '+ self._head+ 'tail: '+ self._tail+ ' health: '+ self.health+ ' length: '+ self.length
+        return 'Snake: ' + \
+               ' head: ' + str(self.get_head().get_point()) + \
+               ' tail: ' + str(self.get_tail().get_point()) + \
+               ' health: ' + str(self.health) + \
+               ' length: ' + str(self.length)
     
     def get_id(self):
         return self._id
