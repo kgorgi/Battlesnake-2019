@@ -11,5 +11,10 @@ class Node:
         #path dist fom start
         self.G=0
 
+        self.parent=None
+
+        def __str__(self):
+            return self.point
+
         def moveCost(self, node):
             return 1

@@ -27,8 +27,29 @@ def init_food(data, snake):
     return list
 
 def dir(snake, food, board):
-    print aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
+    
 
+    path_list = aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
+
+    
+    print("head x,y "+str(snake.head[0])+" "+str(snake.head[1]))
+    for each in path_list:
+        col,row = each.point
+        print("next x,y "+str(col)+" "+str(row))
+
+    print("food x,y "+str(food.x)+" "+str(food.y))
+
+    #""""
+    if snake.head[0] > col:
+        return 'left'
+    elif snake.head[0]<col:
+        return 'right'
+    if snake.head[1] >row:
+        return 'up'
+    else:
+        return 'down'
+
+    """
     if snake.head[0] > food.x:
         return 'left'
     elif snake.head[0]<food.x:
@@ -37,6 +58,7 @@ def dir(snake, food, board):
         return 'up'
     else:
         return 'down'
+    """
 
 
 @bottle.post('/start')
