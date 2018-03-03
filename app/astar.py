@@ -1,33 +1,6 @@
 from Node import Node
 from SnakeNode import SnakeNode
-
-def getNeighbours(point, board):
-    x,y = point
-
-    valid_adjacent = []
-
-    if x - 1 >= 0:
-        valid_adjacent.append((x-1,y))
-    if y-1 >= 0:
-        valid_adjacent.append((x,y-1))
-    if x + 1 < board.get_width():
-        valid_adjacent.append((x+1,y))
-    if y + 1 < board.get_height():
-        valid_adjacent.append((x,y+1))        
-
-    neighbours = []
-    for point in valid_adjacent:
-        node = board.get_node(point)
-
-        if node is None:
-            node = board.add_blank(point)
-
-        if not isinstance(node, SnakeNode):
-            neighbours.append(node)
-    
-    return neighbours
-
-
+from Neighbours import getNeighbours
 
 def chooseNext(node):
     return node.get_distance_to_start() + node.get_distance_to_goal()

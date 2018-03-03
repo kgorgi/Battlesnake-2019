@@ -1,3 +1,6 @@
+from aStar import aStar
+from Neighbours import getNeighbours
+
 class SnakeInfo:
     def __init__(self, data,board, our_snake_id =""):
     
@@ -19,9 +22,17 @@ class SnakeInfo:
 
     def get_tail(self):
         return self._board.get_node(self._tail)
+    
+    def path_to_tail(self,board):
+        return aStar(self.get_head(),self.get_tail(),board)
+    
 
     def __str__(self):
-        return 'Snake: head: '+ self._head+ 'tail: '+ self._tail+ ' health: '+ self.health+ ' length: '+ self.length
+        return 'Snake: ' + \
+               ' head: ' + str(self.get_head().get_point()) + \
+               ' tail: ' + str(self.get_tail().get_point()) + \
+               ' health: ' + str(self.health) + \
+               ' length: ' + str(self.length)
     
     def get_id(self):
         return self._id
