@@ -9,6 +9,7 @@ from Food import Food
 from SnakeNode import SnakeNode
 from astar import aStar
 from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
+from Path import Path
 
 @bottle.route('/')
 def static():
@@ -19,55 +20,19 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def dir(start_node, end_node, board, filter_obj):
-    path_list = aStar(start_node, end_node, board, filter_obj)
-
-    for each in path_list:
-        print each.get_point()
-
-    x, y = 0, 0
-    if path_list is None:
-        # No Direct Path, Choose The First Neighbour
-        neighbours = get_neighbours(start_node.get_point(), board, filter_obj)
-        if len(neighbours) == 0:
-            # Time to DIE
-            print("RIP")
-            return "down"
-        x, y = neighbours[0].get_point()
-    else:
-        x, y = path_list[1].get_point()
-    
-
-    path_list = aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
-
-    
-    print("head x,y "+str(snake.head[0])+" "+str(snake.head[1]))
-    for each in path_list:
-        col,row = each.point
-        print("next x,y "+str(col)+" "+str(row))
-
-    print("food x,y "+str(food.x)+" "+str(food.y))
+def dir(snake_head, next_node):
+    x,y = next_node.get_point()
+    sx,sy = snake_head.get_point()
 
     #""""
-    if snake.head[0] > col:
-        return 'left'
-    elif snake.head[0]<col:
+    if x > sx:
         return 'right'
-    if snake.head[1] >row:
-        return 'up'
-    else:
-        return 'down'
-
-    """
-    if snake.head[0] > food.x:
+    elif x < sx:
         return 'left'
-    elif snake.head[0]<food.x:
-        return 'right'
-    if snake.head[1] > food.y:
-        return 'up'
-    else:
+    if y > sy:
         return 'down'
-    """
+    else:
+        return 'up'
 
 
 @bottle.post('/start')
@@ -102,7 +67,8 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
 
-    direction = dir(snake.get_head(), food[0], board, FoodFilter())
+    path = Path(board).find_path()
+    direction = dir(snake.get_head(), path[0])
     
     print board
     print direction

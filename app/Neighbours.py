@@ -35,11 +35,11 @@ class FoodFilter:
         return not isinstance(node, SnakeNode)
 
 class SnakePartFilter:
-    def __init__(self, snake_part):
-        self._snake_part = snake_part
+    def __init__(self, snake_parts):
+        self._snake_parts = snake_parts
 
     def is_neighbour(self, node):
-        if node is self._snake_part:
+        if node in self._snake_parts:
             return True
         elif isinstance(node, SnakeNode):
             return False
