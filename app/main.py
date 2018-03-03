@@ -2,46 +2,63 @@ import bottle
 import os
 import random
 import json
+import pprint
 from Node import Node
 from Board import Board
 from Food import Food
-from SnakeNode import SnakeNode
-from aStar import aStar
-from Neighbours import getNeighbours
+from Snake import Snake
+from astar import aStar
+
 
 @bottle.route('/')
 def static():
     return "the server is running"
 
+
 @bottle.route('/static/<path:path>')
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def dir(start_node, end_node, board):
-    path_list = aStar(start_node, end_node, board)
+def init_food(data, snake):
+    list = []
+    for food in data['food']['data']:
+        list.append(Food(food, snake))
 
-    x, y = 0, 0
-    if path_list is None:
-        # No Direct Path, Choose The First Neighbour
-        neighbours = getNeighbours(start_node.get_point(), board)
-        if len(neighbours) == 0:
-            # Time to DIE
-            print("RIP")
-            return "down"
-        x, y = neighbours[0].get_point()
-    else:
-        x, y = path_list[1].get_point()
+    return list
+
+def dir(snake, food, board):
     
-    sx, sy = start_node.get_point()
+
+    path_list = aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
+
     
-    if x > sx:
+    print("head x,y "+str(snake.head[0])+" "+str(snake.head[1]))
+    for each in path_list:
+        col,row = each.point
+        print("next x,y "+str(col)+" "+str(row))
+
+    print("food x,y "+str(food.x)+" "+str(food.y))
+
+    #""""
+    if snake.head[0] > col:
+        return 'left'
+    elif snake.head[0]<col:
         return 'right'
-    elif x < sx:
-        return "left"
-    elif y > sy:
-        return "down"
-    else: 
-        return "up"
+    if snake.head[1] >row:
+        return 'up'
+    else:
+        return 'down'
+
+    """
+    if snake.head[0] > food.x:
+        return 'left'
+    elif snake.head[0]<food.x:
+        return 'right'
+    if snake.head[1] > food.y:
+        return 'up'
+    else:
+        return 'down'
+    """
 
 
 @bottle.post('/start')
@@ -72,30 +89,19 @@ def move():
     data = bottle.request.json
 
     board = Board(data)
-
-    snake = board.get_our_snake()
-    food = board.get_food_list()
+    #enemy_list = init_enemies(data['snakes'])
+    snake = Snake(data['you'])
+    food = init_food(data, snake) #list of food in ordered by closest distance to snake
     
-    direction = dir(snake.get_head(), food[0], board)
-
-<<<<<<< HEAD
-    toTail = aStar(snake.get_head(),snake.get_tail(),board)
-    if(not toTail):
-        print toTail
-        print "changes"
-
-
-
-=======
->>>>>>> 35d48b86816c8f7cf9758bb0e64cd019824dddb9
-    print board
+    
+    directions = ['up', 'down', 'left', 'right']
+    direction = dir(snake, food[0], board) #passing in first item of food list for testing
     print direction
 
     return {
         'move': direction,
-        'taunt': 'Monty Python in Python!'
+        'taunt': 'battlesnake-python!'
     }
-    
 
 
 # Expose WSGI app (so gunicorn can find it)

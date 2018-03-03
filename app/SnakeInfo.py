@@ -1,4 +1,4 @@
-from aStar import aStar
+from astar import astar
 from Neighbours import getNeighbours
 
 class SnakeInfo:
