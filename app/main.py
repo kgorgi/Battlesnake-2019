@@ -6,7 +6,7 @@ from Node import Node
 from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
-from aStar import aStar, getNeighbours
+from astar import aStar, getNeighbours
 
 @bottle.route('/')
 def static():
@@ -75,10 +75,7 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
     
-
     direction = dir(snake.get_head(), food[0], board)
-
-
 
     print board
     print direction
