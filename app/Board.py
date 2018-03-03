@@ -2,7 +2,7 @@ from Node import Node
 from Food import Food
 from SnakeNode import SnakeNode
 from SnakeInfo import SnakeInfo
-
+import operator
 class Board:
     def __init__(self, data):
         self._width = data['width']
@@ -29,12 +29,16 @@ class Board:
                 new_snake = SnakeNode(point, snake_info)
                 self._nodes[new_snake.get_point()] = new_snake
 
+        snake_head = self._our_snake.get_head()
         # Process Food
         for raw_data in data['food']['data']:
-            new_food = Food(raw_data)
+            new_food = Food(raw_data, snake_head)
             self._food_list.append(new_food)
             self._nodes[new_food.get_point()] = new_food
         
+        self._food_list = sorted(self._food_list, key=operator.attrgetter('_start_distance'))
+
+
     def get_node(self, point):
         x, y = point
         if x < 0 or x > self._width or y < 0 or y > self._height:
