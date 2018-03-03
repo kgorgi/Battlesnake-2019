@@ -3,9 +3,11 @@ import os
 import random
 import json
 import pprint
+from Node import Node
 from Board import Board
 from Food import Food
 from Snake import Snake
+from astar import aStar
 
 
 @bottle.route('/')
@@ -24,12 +26,14 @@ def init_food(data, snake):
 
     return list
 
-def dir(snake, food):
-    if snake.x > food.x:
+def dir(snake, food, board):
+    print aStar(Node(0, snake.head), Node(3, (food.x, food.y)), board.board )
+
+    if snake.head[0] > food.x:
         return 'left'
-    elif snake.x<food.x:
+    elif snake.head[0]<food.x:
         return 'right'
-    if snake.y > food.y:
+    if snake.head[1] > food.y:
         return 'up'
     else:
         return 'down'
@@ -69,7 +73,7 @@ def move():
     
     
     directions = ['up', 'down', 'left', 'right']
-    direction = dir(snake, food[0]) #passing in first item of food list for testing
+    direction = dir(snake, food[0], board) #passing in first item of food list for testing
     print direction
 
     return {
