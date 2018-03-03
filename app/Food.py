@@ -1,8 +1,11 @@
-class Food:
+from Node import Node
 
-    def __init__(self, data, snake):
-        self.x = data['x']
-        self.y = data['y']
-        self.distance = abs(snake.head[0] - self.x) + abs(snake.head[1] - self.y)
+class Food (Node):
+
+    def __init__(self, data):
+        x = data['x']
+        y = data['y']
+        
+        super(Food, self).__init__((x, y))
         
 

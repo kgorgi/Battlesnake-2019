@@ -1,20 +1,33 @@
-class Node:
-    def __init__(self,value,point):
-        #if the node is visitable
-        self.value=value
+class Node(object):
+    def __init__(self, point):
 
-        self.point=point
+        self._point = point
 
-        #abs dist to goal
-        self.H=0
+        # Absolute Distance To Goal
+        self._goal_dist = 0
 
-        #path dist fom start
-        self.G=0
+        # Path Distance to Start
+        self._start_dist = 0
 
-        self.parent=None
+        self._parent = None
 
-        def __str__(self):
-            return self.point
+    def get_point(self):
+        return self._point
 
-        def moveCost(self, node):
-            return 1
+    def get_distance_to_start(self):
+        return self._start_dist
+
+    def get_distance_to_goal(self):
+        return self._goal_dist
+
+    def set_distance_to_start(self, value):
+        self._start_dist = value
+
+    def set_distance_to_goal(self, value):
+        self._goal_dist = value
+
+    def get_parent(self):
+        return self._parent
+
+    def set_parent(self, value):
+        self._parent = value
