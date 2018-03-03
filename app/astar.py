@@ -40,12 +40,18 @@ def aStar(start_node, end_node_list, board, filter_obj):
 
         if(current.get_point() in [ x.get_point() for x in end_node_list]):
             path = []
+            
             while current.get_parent():
                 path.append(current)
                 current = current.get_parent()
             
             path.append(current)
             #reverses list
+
+            for each in visited:
+                each.reset_astar()
+            for each in not_visited:
+                each.reset_astar()
             return path[::-1]
         
         not_visited.remove(current)
@@ -65,5 +71,10 @@ def aStar(start_node, end_node_list, board, filter_obj):
                 node.set_distance_to_goal(dist_to_closest(node,end_node_list))
                 node.set_parent(current)
                 not_visited.add(node)
+
+    for each in visited:
+        each.reset_astar()
+    for each in not_visited:
+        each.reset_astar()
     
     return None           

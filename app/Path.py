@@ -11,19 +11,24 @@ class Path:
         snake_heads.append(self.board.get_our_snake().get_head())
         for food in self.food_list:
             food_to_head = aStar(food,snake_heads,self.board,SnakePartFilter(snake_heads))
+            if not food_to_head: continue
             if food_to_head[-1] == self.board.get_our_snake().get_head(): 
                 return food_to_head
         return None
     
     def find_path(self):
         fpath = self.food_path()
+        if not fpath:
+                return self.stall()
         fpath.reverse()
 
         while not self.is_viable(fpath) :
+            idx = self.food_list.index(fpath[-1])
+            if idx >= len(self.food_list): return self.stall()
+            else: self.food_list = self.food_list[idx+1:]
+            fpath = self.food_path()
             if not fpath:
                 return self.stall()
-            self.food_list = self.food_list[self.food_list.index(fpath[0])+1:]
-            fpath = self.food_path()
             fpath.reverse()
             
         return fpath

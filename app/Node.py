@@ -31,3 +31,8 @@ class Node(object):
 
     def set_parent(self, value):
         self._parent = value
+    
+    def reset_astar(self):
+        self._goal_dist = 0
+        self._start_dist = 0
+        self._parent = None
