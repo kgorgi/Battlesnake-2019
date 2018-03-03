@@ -6,7 +6,6 @@ def getNeighbours(point,grid):
     width = len(grid[0])
     height = len(grid)
 
-    #add decisions here
 
     valid_adjecent=[]
     if x-1>=0:
@@ -19,8 +18,11 @@ def getNeighbours(point,grid):
         valid_adjecent.append((x,y+1))        
 
     neighbours = [grid[d[0]][d[1]] for d in valid_adjecent]
+    neighbours = [n for n in neighbours if n.value < 2]
     
     return neighbours
+
+
 
 def chooseNext(node):
     return node.G+node.H
@@ -47,7 +49,7 @@ def aStar(start,end,grid):
         #find next node to visit
         current =min(not_visited,key=chooseNext)
 
-        if(current==end):
+        if(current.point==end.point):
             path=[]
             while current.parent:
                 path.append(current)
@@ -71,8 +73,7 @@ def aStar(start,end,grid):
                 node.H=manhattan(node,end)
                 node.parent=current
                 not_visited.add(node)
-    return None
-                
+    return 'no path'                
 
 
 
