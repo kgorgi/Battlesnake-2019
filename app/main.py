@@ -6,7 +6,7 @@ from Node import Node
 from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
-from aStar import aStar
+from astar import aStar
 from Neighbours import getNeighbours
 
 @bottle.route('/')
@@ -19,6 +19,9 @@ def static(path):
 
 def dir(start_node, end_node, board):
     path_list = aStar(start_node, end_node, board)
+
+    for each in path_list:
+        print each.get_point()
 
     x, y = 0, 0
     if path_list is None:
@@ -76,18 +79,8 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
     
-    direction = dir(snake.get_head(), food[0], board)
+    direction = dir(snake.get_head(), food, board)
 
-<<<<<<< HEAD
-    toTail = aStar(snake.get_head(),snake.get_tail(),board)
-    if(not toTail):
-        print toTail
-        print "changes"
-
-
-
-=======
->>>>>>> 35d48b86816c8f7cf9758bb0e64cd019824dddb9
     print board
     print direction
 
