@@ -80,6 +80,7 @@ def move():
         'move': direction,
         'taunt': 'battlesnake-python!'
     }
+    
 
 
 # Expose WSGI app (so gunicorn can find it)
