@@ -43,8 +43,12 @@ class Path:
         
         us = self.board.get_our_snake()
         path= self.path_to_tail()
-        for each in path:
-            print each.get_point()
+        
+        if self.board.get_our_snake().health == 100:
+            for node in get_neighbours(self.board.get_our_snake().get_head().get_point(),self.board,FoodFilter()):
+                if(aStar(node,us.get_tail(),self.board,SnakePartFilter([us.get_tail()]))):
+                    return [path[0],node]
+
         return path
 
 
