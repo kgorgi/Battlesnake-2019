@@ -79,15 +79,8 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
 
-    direction = ""
-    if snake.length < 5:
-        alg_filter = FoodFilter()
-        direction = dir(snake.get_head(), food[0], board, alg_filter)
-    else:
-        alg_filter = SnakePartFilter(snake.get_tail())
-        direction = dir(snake.get_head(), snake.get_tail(), board, alg_filter)
+    direction = dir(snake.get_head(), food[0], board, FoodFilter())
     
-
     print board
     print direction
 
