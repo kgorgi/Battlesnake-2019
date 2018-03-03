@@ -6,7 +6,7 @@ from Node import Node
 from Board import Board
 from Food import Food
 from Snake import Snake
-from astar import aStar, getNeighbours
+from aStar import aStar, getNeighbours
 
 @bottle.route('/')
 def static():
