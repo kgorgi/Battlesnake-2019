@@ -27,6 +27,8 @@ def getNeighbours(point, board):
     
     return neighbours
 
+
+
 def chooseNext(node):
     return node.get_distance_to_start() + node.get_distance_to_goal()
 
