@@ -20,6 +20,9 @@ def static(path):
 def dir(start_node, end_node, board, filter_obj):
     path_list = aStar(start_node, end_node, board, filter_obj)
 
+    for each in path_list:
+        print each.get_point()
+
     x, y = 0, 0
     if path_list is None:
         # No Direct Path, Choose The First Neighbour
