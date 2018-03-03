@@ -15,6 +15,12 @@ class Path:
             if food_to_head[-1] == self.board.get_our_snake().get_head(): 
                 return food_to_head
         return None
+
+    def path_to_tail(self):
+        snake_tails = [info.get_tail() for info in self.board.get_enemies()]
+        snake_tails.append(self.board.get_our_snake().get_tail())
+        path_to_tail = aStar(self.board.get_our_snake().get_head(),snake_tails,self.board,SnakePartFilter(snake_tails))
+        return path_to_tail
     
     def find_path(self):
         fpath = self.food_path()
@@ -34,8 +40,12 @@ class Path:
         return fpath
 
     def stall(self):
+        
         us = self.board.get_our_snake()
-        return aStar(us.get_head(),us.get_tail(),self.board,SnakePartFilter([us.get_tail]))
+        path= self.path_to_tail()
+        for each in path:
+            print each.get_point()
+        return path
 
 
     def is_viable(self,path):
