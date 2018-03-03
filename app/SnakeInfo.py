@@ -1,5 +1,4 @@
-from aStar import aStar
-from Neighbours import getNeighbours
+from astar import aStar
 
 class SnakeInfo:
     def __init__(self, data,board, our_snake_id =""):

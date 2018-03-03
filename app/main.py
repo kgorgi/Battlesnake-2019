@@ -6,8 +6,8 @@ from Node import Node
 from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
-from aStar import aStar
-from Neighbours import getNeighbours
+from astar import aStar
+from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
 
 @bottle.route('/')
 def static():
@@ -17,13 +17,13 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def dir(start_node, end_node, board):
-    path_list = aStar(start_node, end_node, board)
+def dir(start_node, end_node, board, filter_obj):
+    path_list = aStar(start_node, end_node, board, filter_obj)
 
     x, y = 0, 0
     if path_list is None:
         # No Direct Path, Choose The First Neighbour
-        neighbours = getNeighbours(start_node.get_point(), board)
+        neighbours = get_neighbours(start_node.get_point(), board, filter_obj)
         if len(neighbours) == 0:
             # Time to DIE
             print("RIP")
@@ -75,19 +75,16 @@ def move():
 
     snake = board.get_our_snake()
     food = board.get_food_list()
+
+    direction = ""
+    if snake.length < 5:
+        alg_filter = FoodFilter()
+        direction = dir(snake.get_head(), food[0], board, alg_filter)
+    else:
+        alg_filter = SnakePartFilter(snake.get_tail())
+        direction = dir(snake.get_head(), snake.get_tail(), board, alg_filter)
     
-    direction = dir(snake.get_head(), food[0], board)
 
-<<<<<<< HEAD
-    toTail = aStar(snake.get_head(),snake.get_tail(),board)
-    if(not toTail):
-        print toTail
-        print "changes"
-
-
-
-=======
->>>>>>> 35d48b86816c8f7cf9758bb0e64cd019824dddb9
     print board
     print direction
 
