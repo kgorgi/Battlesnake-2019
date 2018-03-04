@@ -1,4 +1,5 @@
 from astar import aStar
+from SnakeNode import SnakeNode
 from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
 
 class Path:
@@ -43,8 +44,11 @@ class Path:
         
         us = self.board.get_our_snake()
         path= self.path_to_tail()
-        for each in path:
-            print each.get_point()
+        
+        if isinstance(path[-1],SnakeNode) and path[-1].get_snake_info().health == 100 and len(path)<=2:
+            return None
+
+
         return path
 
 
