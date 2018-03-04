@@ -68,7 +68,14 @@ def move():
 
     path = Path(board).find_path()
 
-    direction = dir(snake.get_head(), path[1])
+    direction = ""
+    if path is None or snake.length < 2 or data['turn'] < 2:
+        neighbours = get_neighbours(snake.get_head().get_point(), board, FoodFilter())
+        if len(neighbours) < 0:
+            return "down"
+        direction = dir(snake.get_head(), neighbours[0])
+    else:
+        direction = dir(snake.get_head(), path[1])
     
     print board
     print direction
