@@ -10,7 +10,6 @@ from SnakeNode import SnakeNode
 from astar import aStar
 from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
 from Path import Path
-
 @bottle.route('/')
 def static():
     return "the server is running"
@@ -37,23 +36,17 @@ def dir(snake_head, next_node):
 @bottle.post('/start')
 def start():
     data = bottle.request.json
-    game_id = data.get('game_id')
-    board_width = data.get('width')
-    board_height = data.get('height')
+    game_id = data['game']['id']
+    board_width = data['board']['width']
+    baord_height = data['board']['width']
 
     head_url = '%s://%s/static/head.png' % (
         bottle.request.urlparts.scheme,
         bottle.request.urlparts.netloc
     )
 
-    # TODO: Do things with data
-
     return {
         'color': '#00f2ff',
-        'taunt': '{} ({}x{})'.format(game_id, board_width, board_height),
-        'head_url': 'https://files.gamebanana.com/img/ico/sprays/516c32f08e03d.png',
-        "head_type": 'fang',
-        'tail_type': 'skinny'
     }
 
 
@@ -62,7 +55,6 @@ def move():
     data = bottle.request.json
 
     board = Board(data)
-
     snake = board.get_our_snake()
     food = board.get_food_list()
 
@@ -77,7 +69,6 @@ def move():
     else:
         direction = dir(snake.get_head(), path[1])
     
-    print board
     print direction
 
     return {

@@ -2,11 +2,10 @@ from astar import aStar
 
 class SnakeInfo:
     def __init__(self, data,board, our_snake_id =""):
-    
-        self._head = (data['body']['data'][0]['x'],  data['body']['data'][0]['y'])
+        self._head = (data['body'][0]['x'],  data['body'][0]['y'])
         self.health = data['health']
-        self.length = len(data['body']['data'])
-        self._tail = (data['body']['data'][self.length-1]['x'], data['body']['data'][self.length-1]['y'])
+        self.length = len(data['body'])
+        self._tail = (data['body'][self.length-1]['x'], data['body'][self.length-1]['y'])
         self._id = data['id']
 
         self._board = board

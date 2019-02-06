@@ -3,10 +3,11 @@ from Food import Food
 from SnakeNode import SnakeNode
 from SnakeInfo import SnakeInfo
 import operator
+
 class Board:
     def __init__(self, data):
-        self._width = data['width']
-        self._height = data['height']
+        self._width = data['board']['width']
+        self._height = data['board']['height']
         self._nodes = dict()
 
         self._food_list = []
@@ -17,21 +18,21 @@ class Board:
         our_id = data['you']['id']
         
         # Process Snakes
-        for snake in data['snakes']['data']:
-            snake_info = SnakeInfo(snake, self,our_id)
+        for snake in data['board']['snakes']:
+            snake_info = SnakeInfo(snake, self, our_id)
 
             if snake_info.is_enemy():
                 self._enemy_list.append(snake_info)
             else:
                 self._our_snake = snake_info
 
-            for point in snake['body']['data']:
+            for point in snake['body']:
                 new_snake = SnakeNode(point, snake_info)
                 self._nodes[new_snake.get_point()] = new_snake
 
         snake_head = self._our_snake.get_head()
         # Process Food
-        for raw_data in data['food']['data']:
+        for raw_data in data['board']['food']:
             new_food = Food(raw_data, snake_head)
             self._food_list.append(new_food)
             self._nodes[new_food.get_point()] = new_food
