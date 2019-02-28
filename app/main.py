@@ -39,12 +39,7 @@ def start():
     data = bottle.request.json
     game_id = data['game']['id']
     board_width = data['board']['width']
-    baord_height = data['board']['width']
-
-    head_url = '%s://%s/static/head.png' % (
-        bottle.request.urlparts.scheme,
-        bottle.request.urlparts.netloc
-    )
+    board_height = data['board']['height']
 
     return {
         'color': '#00f2ff',
