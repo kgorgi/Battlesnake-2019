@@ -6,6 +6,7 @@ import operator
 
 class Board:
     def __init__(self, data):
+        self._turn = data['turn']
         self._width = data['board']['width']
         self._height = data['board']['height']
         self._nodes = dict()
@@ -49,6 +50,11 @@ class Board:
         else:
             return None
 
+    def get_snake_heads(self):
+        snake_heads = [info.get_head() for info in self.board.get_enemies()]
+        snake_heads.append(self.board.get_our_snake().get_head())
+        return snake_head
+
     def get_enemies(self):
         return self._enemy_list
 
@@ -63,6 +69,9 @@ class Board:
 
     def get_height(self):
         return self._height
+
+    def get_turn(self):
+        return self._turn
 
     def add_blank(self, point):
         new_node = Node(point)

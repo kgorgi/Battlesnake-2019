@@ -22,11 +22,13 @@ def get_neighbours(point, board, filter_obj):
         if node is None:
             node = board.add_blank(point)
 
+        #Configurable check to see if move is open
         if filter_obj.is_neighbour(node):
             neighbours.append(node)
     
     return neighbours
 
+# Returns false for snake nodes
 class FoodFilter:
     def __init__(self):
         pass
@@ -34,6 +36,7 @@ class FoodFilter:
     def is_neighbour(self, node):
         return not isinstance(node, SnakeNode)
 
+# Returns true for nodes that are in the list:snake_parts
 class SnakePartFilter:
     def __init__(self, snake_parts):
         self._snake_parts = snake_parts

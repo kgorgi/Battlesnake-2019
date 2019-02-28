@@ -19,8 +19,22 @@ def dist_to_closest(start_node, end_node_list):
     
     return smallest_d
 
-        
-#returns list of nodes to the closest end node from start node
+'''
+returns list of nodes to the closest end node from start node
+
+filter_obj parameter:
+
+    Basically a lambda function that defines if a node is an 
+    available space that the snake can move onto and through.
+
+    Essentially defines what is a "wall" that the astar needs
+    to path around.
+
+    ex:
+        FoodFilter = makes it so all snake nodes are walls
+        SnakePartFilter = Same as Foodfilter but adds exceptions
+            for nodes in the snakes_nodes list
+'''
 def aStar(start_node, end_node_list, board, filter_obj):
     if(not isinstance(end_node_list,list)):
         end_node_list = [end_node_list]
