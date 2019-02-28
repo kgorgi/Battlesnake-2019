@@ -1,6 +1,7 @@
 # battlesnake-python
 
 python 2.7
+Running on 2.18 windows ~ goh
 
 
 ## Running the Snake Locally
