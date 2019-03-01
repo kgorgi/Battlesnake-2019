@@ -1,3 +1,4 @@
+import sys
 import bottle
 from bottle import HTTPResponse
 import os
@@ -79,9 +80,13 @@ def end():
 application = bottle.default_app()
 
 if __name__ == '__main__':
+    port = '8080'
+    if len(sys.argv) > 1 :
+        port = sys.argv[1]
+        
     bottle.run(
         application,
         host=os.getenv('IP', '0.0.0.0'),
-        port=os.getenv('PORT', '8080'),
+        port=os.getenv('PORT', port),
         debug = os.getenv('DEBUG',True)
     )
