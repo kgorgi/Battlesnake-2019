@@ -1,5 +1,5 @@
-from astar import aStar
-from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
+from pathing.astar import aStar
+from pathing.Neighbours import get_neighbours, FoodFilter, SnakePartFilter
 
 class Tails:
     def __init__(self, board):

@@ -8,9 +8,9 @@ from Node import Node
 from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
-from astar import aStar
-from Neighbours import get_neighbours, FoodFilter, SnakePartFilter
-from Path import Path
+from pathing.astar import aStar
+from pathing.Neighbours import get_neighbours, FoodFilter, SnakePartFilter
+from pathing.Path import Path
 @bottle.route('/')
 def static():
     return "the server is running"
