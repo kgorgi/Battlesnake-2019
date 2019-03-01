@@ -78,6 +78,11 @@ class Board:
         self._nodes[point] = new_node
         return new_node
 
+    #ew
+    def is_snake_node(self,node):
+        return isinstance(node,SnakeNode)
+
+
     # Legend: 
     # F = Food
     # S = Snake  

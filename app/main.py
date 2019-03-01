@@ -8,9 +8,10 @@ from Node import Node
 from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
-from pathing.astar import aStar
-from pathing.Neighbours import get_neighbours, FoodFilter, SnakePartFilter
+from pathing.find_path import find_path
 from pathing.Path import Path
+from pathing.util_path import direction
+
 @bottle.route('/')
 def static():
     return "the server is running"
@@ -20,18 +21,7 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-def dir(snake_head, next_node):
-    x,y = next_node.get_point()
-    sx,sy = snake_head.get_point()
 
-    if x > sx:
-        return 'right'
-    elif x < sx:
-        return 'left'
-    if y > sy:
-        return 'down'
-    else:
-        return 'up'
 
 
 @bottle.post('/start')
@@ -54,18 +44,10 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
 
-    path = Path(board).find_path()
+    # path = Path(board).find_path()
+    path = find_path(board)
 
-    direction = ""
-    if path is None or snake.length < 2 or data['turn'] < 2:
-        neighbours = get_neighbours(snake.get_head().get_point(), board, FoodFilter())
-        if len(neighbours) <= 0:
-            return "down"
-        direction = dir(snake.get_head(), neighbours[0])
-    else:
-        direction = dir(snake.get_head(), path[1])
-    
-    print direction
+    new_direction = direction(path,snake,data,board)
 
     return HTTPResponse(
         status = 200,
@@ -73,7 +55,7 @@ def move():
             "Content-Type": "application/json"
         },
         body=json.dumps({
-        'move': direction,
+        'move': new_direction,
         'taunt': 'battlesnake-python!'
         })
     )

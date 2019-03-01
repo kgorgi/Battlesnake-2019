@@ -1,6 +1,6 @@
 from Node import Node
 from SnakeNode import SnakeNode
-from Neighbours import get_neighbours
+from neighbours import get_neighbours
 
 def chooseNext(node):
     return node.get_distance_to_start() + node.get_distance_to_goal()
