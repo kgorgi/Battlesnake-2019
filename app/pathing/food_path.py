@@ -2,6 +2,12 @@ from astar import aStar
 from filters import SnakePartFilter
 
 # Do food tree here
+# Should either return path or 
+# none (if no path or decide not to go for food)
+def find_food():
+    return
+
+
 def food_path(food_list,board):
     snake_heads = [info.get_head() for info in board.get_enemies()]
     snake_heads.append(board.get_our_snake().get_head())

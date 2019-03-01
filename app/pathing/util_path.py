@@ -10,6 +10,9 @@ def emerge_checks(board):
 def safety_check(move):
     return
 
+
+# --- older stuff ---
+
 def is_viable(board,path):
     us = board.get_our_snake()
     path_check = aStar(path[1],us.get_tail(),board,SnakePartFilter([us.get_tail()]))
