@@ -9,7 +9,7 @@ from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
 from pathing.find_path import find_path
-from pathing.Path import Path
+from pathing.path import Path
 from pathing.util_path import direction
 
 @bottle.route('/')
@@ -44,7 +44,6 @@ def move():
     snake = board.get_our_snake()
     food = board.get_food_list()
 
-    # path = Path(board).find_path()
     path = find_path(board)
 
     new_direction = direction(path,snake,data,board)

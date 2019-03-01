@@ -1,6 +1,6 @@
 from astar import aStar
 from SnakeNode import SnakeNode
-from Neighbours import get_neighbours
+from neighbours import get_neighbours
 from filters import FoodFilter, SnakePartFilter
 
 # This class to be fazed out into sub classes

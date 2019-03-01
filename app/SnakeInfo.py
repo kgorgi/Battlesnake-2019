@@ -1,4 +1,4 @@
-from astar import aStar
+from pathing.astar import aStar
 
 class SnakeInfo:
     def __init__(self, data,board, our_snake_id =""):
