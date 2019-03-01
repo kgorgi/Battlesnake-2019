@@ -8,7 +8,7 @@ def emerge_checks(board):
 
 # Check that move doesnt kill us. And not null
 def safety_check(move):
-    return
+    return isinstance(SnakeNode)
 
 def is_viable(board,path):
     us = board.get_our_snake()

@@ -14,7 +14,7 @@ class SnakeInfo:
 
     def is_enemy(self):
         return self._enemy
-
+    
     def get_head(self):
         return self._board.get_node(self._head)
 
