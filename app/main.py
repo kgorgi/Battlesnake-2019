@@ -39,7 +39,7 @@ def move():
 
     board = Board(data)
     snake = board.get_our_snake()
-    food = board.get_food_list()
+    # food = board.get_food_list()
 
     path = find_path(board)
 
