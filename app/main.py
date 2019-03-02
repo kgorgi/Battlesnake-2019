@@ -21,9 +21,6 @@ def static():
 def static(path):
     return bottle.static_file(path, root='static/')
 
-
-
-
 @bottle.post('/start')
 def start():
     data = bottle.request.json
