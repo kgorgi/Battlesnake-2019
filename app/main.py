@@ -44,7 +44,7 @@ def move():
     path = find_path(board)
 
     new_direction = direction(path,snake,data,board)
-
+    print board
     return HTTPResponse(
         status = 200,
         headers={

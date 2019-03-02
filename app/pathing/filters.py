@@ -1,4 +1,5 @@
 from SnakeNode import SnakeNode
+from FaceNode import FaceNode
 
 # Returns false for snake nodes
 class FoodFilter:
@@ -6,7 +7,7 @@ class FoodFilter:
         pass
     
     def is_neighbour(self, node):
-        return not isinstance(node, SnakeNode)
+        return not (isinstance(node, SnakeNode) or isinstance(node,FaceNode))
 
 # Returns true for nodes that are in the list:snake_parts
 class SnakePartFilter:
@@ -16,7 +17,7 @@ class SnakePartFilter:
     def is_neighbour(self, node):
         if node in self._snake_parts:
             return True
-        elif isinstance(node, SnakeNode):
+        elif (isinstance(node, SnakeNode) or isinstance(node,FaceNode)):
             return False
         else:
             return True 

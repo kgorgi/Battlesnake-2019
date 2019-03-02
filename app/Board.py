@@ -2,6 +2,7 @@ from Node import Node
 from Food import Food
 from SnakeNode import SnakeNode
 from SnakeInfo import SnakeInfo
+from FaceNode import FaceNode
 import operator
 
 class Board:
@@ -24,6 +25,15 @@ class Board:
 
             if snake_info.is_enemy():
                 self._enemy_list.append(snake_info)
+                head = snake['body'][0]
+                for op in [(1,0),(0,1),(0,-1),(-1,0)]:
+                    px = head['x']+op[0]
+                    py = head['y']+op[1]
+                    if px > self.get_width or px < 0 or py < 0 or py > self.get_height:
+                        continue
+                    else:
+                        self._nodes[(px,py)] = FaceNode((px,py),snake_info)
+
             else:
                 self._our_snake = snake_info
 
@@ -105,7 +115,7 @@ class Board:
                     node = self._nodes[loc]
                     if isinstance(node, Food):
                         line.append("F")
-                    elif isinstance(node, SnakeNode):
+                    elif isinstance(node, SnakeNode) or isinstance(node,FaceNode):
                         snake_info = node.get_snake_info()
                         if snake_info.is_enemy():
                             line.append("X")
