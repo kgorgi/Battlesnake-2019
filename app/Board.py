@@ -27,7 +27,6 @@ class Board:
                 self._enemy_list.append(snake_info)
                 head = snake['body'][0]
                 for op in [(1,1),(-1,1),(1,-1),(-1,-1)]:
-                    print "HEAD " + head + " OP " + op
                     px = head['x']+op[0]
                     py = head['y']+op[1]
                     if px > self.get_width or px < 0 or py < 0 or py > self.get_height:
