@@ -25,6 +25,8 @@ def find_path(board):
         # Check if large enough to attack enemy
         if us.length - enemy.length - ATTACK_LENGTH_THRESH > 0:
             path = attack(board)
+        else:
+            path = food_path(food_list, board)
  
     # If no path to food stall
     if not path:
