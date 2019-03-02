@@ -1,5 +1,6 @@
 # battlesnake-python
 Docs: https://docs.battlesnake.io/  
+latest engine: https://github.com/battlesnakeio/engine/releases/latest  
 python 2.7  
 Running on 2.18 windows ~ goh  
 
