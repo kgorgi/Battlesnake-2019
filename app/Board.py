@@ -25,7 +25,7 @@ class Board:
 
             if snake_info.is_enemy():
                 self._enemy_list.append(snake_info)
-                head = snake['head']
+                head = snake['body'][0]
                 for op in [(1,1),(-1,1),(1,-1),(-1,-1)]:
                     px = head[0]+op[0]
                     py = head[1]+op[1]
