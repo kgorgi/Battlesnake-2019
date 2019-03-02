@@ -28,8 +28,8 @@ class Board:
                 head = snake['body'][0]
                 for op in [(1,1),(-1,1),(1,-1),(-1,-1)]:
                     print "HEAD " + head + " OP " + op
-                    px = head[0]+op[0]
-                    py = head[1]+op[1]
+                    px = head['x']+op[0]
+                    py = head['y']+op[1]
                     if px > self.get_width or px < 0 or py < 0 or py > self.get_height:
                         continue
                     else:
