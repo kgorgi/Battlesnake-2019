@@ -5,7 +5,7 @@ from attack_path import attack
 
 # Subject to change
 TURNS_TO_CHASE_FOOD = 50
-HEALTH_TO_CHASE_FOOD = 50
+HEALTH_TO_CHASE_FOOD = 100
 ATTACK_LENGTH_THRESH = 2 # Difference between snake lengths to attack
 
 
@@ -31,7 +31,7 @@ def find_path(board):
         return stall(board)
    
     # Check that the path is viable 
-   # path = check(board, path, food_list) 
+    # path = check(board, path, food_list) 
     path.reverse()   
     return path
 

@@ -37,11 +37,20 @@ def follow_our_tail(board):
     previous_tail = our_tail
     return path_to_tail
 
+previous_tails = None
 # Return path to other tail
 def follow_other_tail(board):
+    global previous_tails
+
     snake_tails = [info.get_tail() for info in board.get_enemies()]
+
+    if previous_tails is None:
+        previous_tails = snake_tails
+
     head = board.get_our_snake().get_head()
-    path_to_tail = aStar(head, snake_tails, board, SnakePartFilter(snake_tails))
+    path_to_tail = aStar(head, previous_tails, board, SnakePartFilter(previous_tails))
+
+    previous_tails = snake_tails
     return path_to_tail
 
 
