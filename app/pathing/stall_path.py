@@ -20,11 +20,21 @@ def stall(board):
 def fill(board):
     return None
 
+
+previous_tail = None
 # Returns path to our tail
 def follow_our_tail(board):
+
+    global previous_tail
     our_tail = [ board.get_our_snake().get_tail() ]
+
+    if previous_tail is None:
+        previous_tail = our_tail
+
     head = board.get_our_snake().get_head()
-    path_to_tail = aStar(head, our_tail, board, SnakePartFilter(our_tail))
+    path_to_tail = aStar(head, previous_tail, board, SnakePartFilter(previous_tail))
+
+    previous_tail = our_tail
     return path_to_tail
 
 # Return path to other tail
