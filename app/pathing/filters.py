@@ -1,4 +1,6 @@
 from SnakeNode import SnakeNode
+from neighbours import get_neighbours
+from Board import get_enemy_heads
 
 # Returns false for snake nodes
 class FoodFilter:
@@ -20,3 +22,12 @@ class SnakePartFilter:
             return False
         else:
             return True 
+
+class SafeSnakePartFilter(SnakePartFilter):
+    def is_neighbour(self,node):
+        if super.is_neighbour(node):
+            for n in get_neighbours(node.get_point()):
+                if n in get_enemy_heads(): return False
+            return True  
+        else: 
+            return False

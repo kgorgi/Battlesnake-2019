@@ -51,9 +51,13 @@ class Board:
             return None
 
     def get_snake_heads(self):
-        snake_heads = [info.get_head() for info in self.board.get_enemies()]
-        snake_heads.append(self.board.get_our_snake().get_head())
-        return snake_head
+        snake_heads = [info.get_head() for info in self.get_enemies()]
+        snake_heads.append(self.get_our_snake().get_head())
+        return snake_heads
+
+    def get_enemy_heads(self):
+        enemy_heads = [info.get_head() for info in self.get_enemies()]
+        return enemy_heads
 
     def get_enemies(self):
         return self._enemy_list
