@@ -52,7 +52,7 @@ class Board:
 
         for x in range(0,int(self.get_width())-1):
             for y in range(0,int(self.get_height())):
-                if(not (x,y) in self._nodes:
+                if(not (x,y) in self._nodes):
                     board.add_blank((x,y))
 
 

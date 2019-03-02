@@ -74,14 +74,16 @@ def aStar(start_node, end_node_list, board, filter_obj):
         for node in get_neighbours(current.get_point(), board, filter_obj):
             if node in visited:
                 continue
+
+            dist_to_start = current.get_distance_to_start() + (node.get_move_cost()/(current.get_distance_to_start()+1))
             if node in not_visited:
                 #updating move cost
-                new_g = current.get_distance_to_start() + (node.get_move_cost()/(current.get_distance_to_start()+1))
+                new_g = dist_to_start
                 if node.get_distance_to_start() > new_g:
                     node.set_distance_to_start(new_g)
                     node.set_parent(current)
             else:
-                node.set_distance_to_start(current.get_distance_to_start() + (node.get_move_cost()/(current.get_distance_to_start()+1)))
+                node.set_distance_to_start(dist_to_start)
                 node.set_distance_to_goal(dist_to_closest(node,end_node_list))
                 node.set_parent(current)
                 not_visited.add(node)

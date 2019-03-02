@@ -10,7 +10,7 @@ class SnakeNode(Node):
 
         self._snake_info = snake_info
 
-        # self.set_move_cost(SNAKE_MOVE_COST)
+        self.set_move_cost(SNAKE_MOVE_COST)
 
     def get_snake_info(self):
         return self._snake_info
