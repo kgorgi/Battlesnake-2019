@@ -32,7 +32,7 @@ def find_path(board):
    
     # Check that the path is viable 
     path = check(board, path, food_list) 
-       
+    path.reverse()   
     return path
 
 

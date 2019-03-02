@@ -19,11 +19,7 @@ class SnakeInfo:
         return self._board.get_node(self._head)
 
     def get_tail(self):
-        return self._board.get_node(self._tail)
-    
-    def path_to_tail(self,board):
-        return aStar(self.get_head(),self.get_tail(),board)
-    
+        return self._board.get_node(self._tail)    
 
     def __str__(self):
         return 'Snake: ' + \
