@@ -25,32 +25,26 @@ def find_path(board):
         # Check if large enough to attack enemy
         if us.length - enemy.length - ATTACK_LENGTH_THRESH > 0:
             path = attack(board)
-        else:
-            path = food_path(food_list, board)
  
     # If no path to food stall
     if not path:
         return stall(board)
    
     # Check that the path is viable 
-    path = check_viable(board, path, food_list) 
+    path = check(board, path, food_list) 
        
     return path
 
 
-def check_viable(board, path, food):
-    if not is_viable(board, path):
-        return stall(board)
-    if food is not None:
+def check(board, path, food):
+    path.reverse()
+    while not is_viable(board, path) :
+        idx = food.index( path[-1])
+        if idx >= len(food): return stall(board)
+        else: food = food[idx+1:]
+        path = food_path(food, board)
+        if not path:
+            return stall(board)
         path.reverse()
-        while not is_viable(board, path) :
-            idx = food.index( path[-1])
-            if idx >= len(food): return stall(board)
-            else: food = food[idx+1:]
-            path = food_path(food, board)
-            if not path:
-                return stall(board)
-            path.reverse()
-        return path
     return path
 
