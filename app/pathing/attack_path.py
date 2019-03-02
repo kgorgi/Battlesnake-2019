@@ -1,4 +1,3 @@
-from tail_path import path_to_tail
 from filters import SnakePartFilter
 from astar import aStar
 from util_path import is_viable
