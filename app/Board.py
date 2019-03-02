@@ -110,7 +110,7 @@ class Board:
                     node = self._nodes[loc]
                     if isinstance(node, Food):
                         line.append("F")
-                    elif isinstance(node, SnakeNode):
+                    elif isinstance(node, SnakeNode) or isinstance(node,FaceNode):
                         snake_info = node.get_snake_info()
                         if snake_info.is_enemy():
                             line.append("X")
