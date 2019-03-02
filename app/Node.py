@@ -11,6 +11,8 @@ class Node(object):
 
         self._parent = None
 
+        self._move_cost = 1
+
     def get_point(self):
         return self._point
 
@@ -31,6 +33,12 @@ class Node(object):
 
     def set_parent(self, value):
         self._parent = value
+
+    def set_move_cost(self,cost):
+        self._move_cost = cost
+
+    def get_move_cost(self):
+        return self._move_cost
     
     def reset_astar(self):
         self._goal_dist = 0

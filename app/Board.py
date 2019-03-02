@@ -40,6 +40,11 @@ class Board:
         
         self._food_list = sorted(self._food_list, key=operator.attrgetter('_start_distance'))
 
+        for x in range(0,int(self.get_width())-1):
+            for y in range(0,int(self.get_height())):
+                if(not (x,y) in self._nodes:
+                    board.add_blank((x,y))
+
 
     def get_node(self, point):
         x, y = point
