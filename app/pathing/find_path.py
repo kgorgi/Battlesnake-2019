@@ -39,8 +39,6 @@ def find_path(board):
 
 
 def check_viable(board, path, food):
-    if not is_viable(board, path):
-        return stall(board)
     if food is not None:
         path.reverse()
         while not is_viable(board, path) :
