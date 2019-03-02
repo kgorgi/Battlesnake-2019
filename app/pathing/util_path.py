@@ -4,11 +4,13 @@ from astar import aStar
 
 # Check for low health / obvious stuff
 def emerge_checks(board):
+    # Health < moves to closest food + 10?
+    # ...
     return
 
 # Check that move doesnt kill us. And not null
 def safety_check(move):
-    return isinstance(SnakeNode)
+    pass
 
 def is_viable(board,path):
     us = board.get_our_snake()
