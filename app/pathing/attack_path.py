@@ -4,7 +4,6 @@ from util_path import is_viable
 from neighbours import get_neighbours
 
 def attack(board):
-    return None
     us = board.get_our_snake()
     snake_heads = [info.get_head() for info in board.get_enemies()]
     snake_heads.append(board.get_our_snake().get_head())
