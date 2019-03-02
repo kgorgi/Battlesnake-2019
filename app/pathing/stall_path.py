@@ -29,10 +29,10 @@ def follow_our_tail(board):
     return path_to_tail
 
 # Return path to other tail
-def follow_other_tail():
+def follow_other_tail(board):
     snake_tails = [info.get_tail() for info in board.get_enemies()]
     head = board.get_our_snake().get_head()
     path_to_tail = aStar(head, snake_tails, board, SnakePartFilter(snake_tails))
-    return path_to_tail(board)
+    return path_to_tail
 
 
