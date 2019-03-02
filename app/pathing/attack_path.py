@@ -17,8 +17,6 @@ def attack(board):
 
     # If we can attack, return path to attack point
     if attack_point: 
-        print 'returning attack path'
-        print us.get_head().get_point()
         path = aStar(attack_point, [ us.get_head() ], board, SnakePartFilter( [ us.get_head() ] ))
     
     
