@@ -11,6 +11,6 @@ class Food (Node):
         sx, sy = snake_head.get_point()
         self._start_distance = abs(x - sx) + abs(y - sy)
         
-    def get_distance_to_head():
+    def get_distance_to_head(self):
         return self._start_distance
 

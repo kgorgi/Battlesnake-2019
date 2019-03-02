@@ -1,5 +1,3 @@
-
-
 def get_neighbours(point, board, filter_obj):
     x,y = point
 
