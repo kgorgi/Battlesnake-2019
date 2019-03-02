@@ -33,20 +33,24 @@ def find_path(board):
         return stall(board)
    
     # Check that the path is viable 
-    path = check_safe(board, path, food_list) 
+    path = check_viable(board, path, food_list) 
        
     return path
 
 
-def check_safe(board, path, food ):
-    path.reverse()
-    while not is_viable(board, path) :
-        idx = food.index( path[-1])
-        if idx >= len(food): return stall(board)
-        else: food = food[idx+1:]
-        path = food_path(food, board)
-        if not path:
-            return stall(board)
+def check_viable(board, path, food):
+    if not is_viable(board, path):
+        return stall(board)
+    if food is not None:
         path.reverse()
+        while not is_viable(board, path) :
+            idx = food.index( path[-1])
+            if idx >= len(food): return stall(board)
+            else: food = food[idx+1:]
+            path = food_path(food, board)
+            if not path:
+                return stall(board)
+            path.reverse()
+        return path
     return path
 
