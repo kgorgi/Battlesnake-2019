@@ -10,7 +10,6 @@ from Board import Board
 from Food import Food
 from SnakeNode import SnakeNode
 from pathing.find_path import find_path
-from pathing.path import Path
 from pathing.util_path import direction
 
 @bottle.route('/')
