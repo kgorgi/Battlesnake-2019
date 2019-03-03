@@ -5,7 +5,7 @@ from attack_path import attack
 
 # Subject to change
 TURNS_TO_CHASE_FOOD = 50
-HEALTH_TO_CHASE_FOOD = 50
+HEALTH_TO_CHASE_FOOD = 100
 ATTACK_LENGTH_THRESH = 2 # Difference between snake lengths to attack
 
 
