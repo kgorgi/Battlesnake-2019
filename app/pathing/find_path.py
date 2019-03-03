@@ -36,9 +36,9 @@ def find_path(board):
         return 'stall',stall(board)
    
     # Check that the path is viable 
-    #path = check(board, path, food_list) 
-    path.reverse()   
-    return state,path
+    path = check(board, path, food_list) 
+    #path.reverse()   
+    return path
 
 
 #check that there will be a path back to tail. else recomputes
