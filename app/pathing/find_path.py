@@ -14,10 +14,14 @@ def find_path(board):
     us = board.get_our_snake()
     
     path = None
+
+    state = 'none'
     
     # Check if we should prioritize food
     if(TURNS_TO_CHASE_FOOD >= board.get_turn() or HEALTH_TO_CHASE_FOOD > us.health):
         path = food_path(food_list, board)
+        print(path is None)
+        state = 'food'
     
     # Check if we can attack
     if not path and (len(board.get_enemies()) is 1):
@@ -25,15 +29,16 @@ def find_path(board):
         # Check if large enough to attack enemy
         if us.length - enemy.length - ATTACK_LENGTH_THRESH > 0:
             path = attack(board)
+            state = 'attack'
  
     # If no path to food stall
     if not path:
-        return stall(board)
+        return 'stall',stall(board)
    
     # Check that the path is viable 
     #path = check(board, path, food_list) 
     path.reverse()   
-    return path
+    return state,path
 
 
 #check that there will be a path back to tail. else recomputes

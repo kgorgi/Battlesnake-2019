@@ -57,10 +57,15 @@ def aStar(start_node, end_node_list, board, filter_obj):
             
             while current.get_parent():
                 path.append(current)
+                current.on_astar = True
+                print(str(current.get_distance_to_start()),)
                 current = current.get_parent()
-            
+            current.on_astar = True
+            print(str(current.get_distance_to_start()),)
             path.append(current)
             #reverses list
+
+            print(board.path())
 
             for each in visited:
                 each.reset_astar()

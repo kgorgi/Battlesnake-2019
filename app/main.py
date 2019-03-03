@@ -41,10 +41,11 @@ def move():
     snake = board.get_our_snake()
     # food = board.get_food_list()
 
-    path = find_path(board)
-
+    state,path = find_path(board)
+    print("state: "+str(state))
     new_direction = direction(path,snake,data,board)
-    print board
+
+    print(board)
     return HTTPResponse(
         status = 200,
         headers={

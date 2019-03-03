@@ -46,7 +46,8 @@ class Board:
         for raw_data in data['board']['food']:
             new_food = Food(raw_data, snake_head)
             self._food_list.append(new_food)
-            self._nodes[new_food.get_point()] = new_food
+            if(not new_food.get_point() in self._nodes):
+                self._nodes[new_food.get_point()] = new_food
         
         self._food_list = sorted(self._food_list, key=operator.attrgetter('_start_distance'))
 
@@ -98,6 +99,25 @@ class Board:
         return isinstance(node,SnakeNode)
 
 
+
+    def path(self):
+        lines = []
+
+        for j in range(0, self._height):
+            line = []
+            for i in range(0, self._width):
+                loc = (i,j)
+                if loc in self._nodes:
+                    node = self._nodes[loc]
+                    if node.on_astar:
+                        line.append("P")
+                    else:
+                        line.append("O")
+                else:
+                    line.append("0")
+            lines.append(" ".join(line))
+        
+        return "\n".join(lines)
     # Legend: 
     # F = Food
     # S = Snake  

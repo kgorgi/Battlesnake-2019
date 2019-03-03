@@ -11,7 +11,9 @@ class Node(object):
 
         self._parent = None
 
-        self._move_cost = 1
+        self.set_move_cost(5)
+
+        self.on_astar = False
 
     def get_point(self):
         return self._point
