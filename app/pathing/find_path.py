@@ -38,7 +38,7 @@ def find_path(board):
     # Check that the path is viable 
     path = check(board, path, food_list) 
     #path.reverse()   
-    return path
+    return state,path
 
 
 #check that there will be a path back to tail. else recomputes
