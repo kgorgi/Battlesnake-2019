@@ -1,9 +1,11 @@
-# battlesnake-python
+# Battlesnake 2019
+
+This project is our team's entry to the 2019 Battlesnake competition. Battlesnake is a multi-player programming game based on the game of Snake. This project is the web server that controls our team's snake. 
+
 Docs: https://docs.battlesnake.io/  
 latest engine: https://github.com/battlesnakeio/engine/releases/latest  
 python 2.7  
 Running on 2.18 windows ~ goh  
-
 
 ## Running the Snake Locally
 
